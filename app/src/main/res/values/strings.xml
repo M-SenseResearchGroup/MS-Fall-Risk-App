@@ -7,6 +7,6 @@
     <string name="connect_sensors_button">Connect Sensors</string>
     <string name="proceed_to_landing_button">Proceed to landing</string>
     <string name="title_launch">mHealth Technologies</string>
-    <string name="title_launch2">MS Fall Prevention</string>
+    <string name="landing1">Welcome!</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

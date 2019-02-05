@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
+        Log.i("metawear","10c");
 
     }
 

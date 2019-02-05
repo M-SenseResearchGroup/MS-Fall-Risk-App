@@ -56,6 +56,7 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
+        Log.i("metawear","10a");
         return inflater.inflate(R.layout.activity_device_setup_fragment, container, false);
     }
 
@@ -66,8 +67,10 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
+        Log.i("metawear","10b");
 
     }
+
 
     /**
      * Called when the app has reconnected to the board

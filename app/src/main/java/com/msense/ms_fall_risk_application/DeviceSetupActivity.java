@@ -95,17 +95,20 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         btDevice= getIntent().getParcelableExtra(EXTRA_BT_DEVICE);
         Log.i("metawear","9");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
+        Log.i("metawear","10");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("metawear","menu"); //this happens after connection to sensor
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_device_setup, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { //If you click disconnect, this brings to connection page
+        Log.i("metawear","disconnect menu");
         switch(item.getItemId()) {
             case R.id.action_disconnect:
                 metawear.disconnectAsync();
@@ -118,6 +121,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public void onBackPressed() {
+        Log.i("metawear","onBackPressed");
         metawear.disconnectAsync();
         super.onBackPressed();
     }
@@ -147,6 +151,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
+        Log.i("metawear","disconnect2");
 
     }
 
