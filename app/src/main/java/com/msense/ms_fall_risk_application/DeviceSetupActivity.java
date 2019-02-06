@@ -39,6 +39,8 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
     public final static String EXTRA_BT_DEVICE= "com.mbientlab.metawear.starter.DeviceSetupActivity.EXTRA_BT_DEVICE";
     private Accelerometer accelerometer; //for accelerometer in onService Connected
     public static class ReconnectDialogFragment extends DialogFragment implements  ServiceConnection {
+
+
         private static final String KEY_BLUETOOTH_DEVICE = "com.mbientlab.metawear.starter.DeviceSetupActivity.ReconnectDialogFragment.KEY_BLUETOOTH_DEVICE";
 
         private ProgressDialog reconnectDialog = null;
@@ -58,6 +60,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Log.i("metawear","DS Recoonect frag");
             btDevice = getArguments().getParcelable(KEY_BLUETOOTH_DEVICE);
             getActivity().getApplicationContext().bindService(new Intent(getActivity(), BtleService.class), this, BIND_AUTO_CREATE);
 
@@ -78,6 +81,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             currentMwBoard= ((BtleService.LocalBinder) service).getMetaWearBoard(btDevice);
+            Log.i("metawear","DS on serv connected");
         }
 
         @Override
@@ -91,25 +95,23 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("metawear","4");
         super.onCreate(savedInstanceState);
-        Log.i("metawear","6");
         setContentView(R.layout.activity_device_setup);
-        Log.i("metawear","7");
+        Log.i("metawear","DS oncreate (not recconect)");
         Toolbar toolbar = findViewById(R.id.toolbar);
-        Log.i("metawear","8");
+        Log.i("metawear","DS 1");
         setSupportActionBar(toolbar);
-        Log.i("metawear","5");
+        Log.i("metawear","DS2");
         btDevice= getIntent().getParcelableExtra(EXTRA_BT_DEVICE);
-        Log.i("metawear","9");
+        Log.i("metawear","DS 3");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
-        Log.i("metawear","10");
+        Log.i("metawear","DS 4");
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("metawear","menu"); //this happens after connection to sensor
+        Log.i("metawear","DS menu"); //this happens after connection to sensor
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_device_setup, menu);
         return true;
@@ -117,7 +119,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //If you click disconnect, this brings to connection page
-        Log.i("metawear","disconnect menu");
+        Log.i("metawear","DS disconnect menu");
         switch(item.getItemId()) {
             case R.id.action_disconnect:
                 metawear.disconnectAsync();
@@ -130,7 +132,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public void onBackPressed() {
-        Log.i("metawear","onBackPressed");
+        Log.i("metawear","DS onBackPressed");
         metawear.disconnectAsync();
         super.onBackPressed();
     }
@@ -142,10 +144,11 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         accelerometer.configure()
                 .odr(32.2f)       // Set sampling frequency to 25Hz, or closest valid ODR
                 .commit();
+        Log.i("metawear","DS service connection device setup");
         metawear.onUnexpectedDisconnect(status -> {
             ReconnectDialogFragment dialogFragment= ReconnectDialogFragment.newInstance(btDevice);
             dialogFragment.show(getSupportFragmentManager(), RECONNECT_DIALOG_TAG);
-
+            Log.i("metawear","DS ununnexpecteddisconnect");
             metawear.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : MainActivity.reconnect(metawear))
                     .continueWith((Continuation<Void, Void>) task -> {
                         if (!task.isCancelled()) {
@@ -153,6 +156,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
                                 ((DialogFragment) getSupportFragmentManager().findFragmentByTag(RECONNECT_DIALOG_TAG)).dismiss();
                                 ((DeviceSetupActivityFragment) getSupportFragmentManager().findFragmentById(R.id.device_setup_fragment)).reconnected();
                             });
+                            Log.i("metawear","DS connectasyn");
                         } else {
                             finish();
                         }
@@ -164,7 +168,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        Log.i("metawear","disconnect2");
+        Log.i("metawear","DS disconnect2");
 
     }
 

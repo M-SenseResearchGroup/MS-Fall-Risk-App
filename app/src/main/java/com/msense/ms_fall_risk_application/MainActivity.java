@@ -30,23 +30,25 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.i("metawear","mAOncreate");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        Log.i("metawear","mAOndestroy");
         ///< Unbind the service when the activity is destroyed
         getApplicationContext().unbindService(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("metawear","mAOnActResult");
         switch(requestCode) {
             case REQUEST_START_APP:
                 ((BleScannerFragment) getFragmentManager().findFragmentById(R.id.scanner_fragment)).startBleScan();
+                Log.i("metawear","mAOnActResult1");
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
 
     @Override
     public UUID[] getFilterServiceUuids() {
+        Log.i("metawear","noidea");
         return new UUID[] {MetaWearBoard.METAWEAR_GATT_SERVICE};
     }
 
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     @Override
     public void onDeviceSelected(final BluetoothDevice device) {
         metawear = serviceBinder.getMetaWearBoard(device);
-        Log.i("metawear","got metawear board"+metawear);
+        Log.i("metawear","mA open connect dialog?");
         final ProgressDialog connectDialog = new ProgressDialog(this);
         connectDialog.setTitle(getString(R.string.title_connecting));
         connectDialog.setMessage(getString(R.string.message_wait));
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         connectDialog.setIndeterminate(true);
         connectDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), (dialogInterface, i) -> metawear.disconnectAsync());
         connectDialog.show();
-        Log.i("metawear","still going");
+        Log.i("metawear","mA connect dialog");
         metawear.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : reconnect(metawear))
                 .continueWith(task -> {
                     if (!task.isCancelled()) {
@@ -84,21 +87,21 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
                         navActivityIntent.putExtra(DeviceSetupActivity.EXTRA_BT_DEVICE, device);
                         startActivityForResult(navActivityIntent, REQUEST_START_APP);
                     }
-
+                    Log.i("metawear","mA task cancelled");
                     return null;
                 });
-        Log.i("metawear","still here");
+        Log.i("metawear","mAondevselected");
     }
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         serviceBinder = (BtleService.LocalBinder) service;
-        Log.i("metawear","Service Connected");
+        Log.i("metawear","mA Service Connected");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        Log.i("metawear","10c");
+        Log.i("metawear","mA disconnect");
 
     }
 

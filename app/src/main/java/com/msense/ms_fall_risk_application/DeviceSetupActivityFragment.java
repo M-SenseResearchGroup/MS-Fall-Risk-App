@@ -41,7 +41,7 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
         if (!(owner instanceof FragmentSettings)) {
             throw new ClassCastException("Owning activity must implement the FragmentSettings interface");
         }
-
+        Log.i("metawear","DF oncreate");
         settings= (FragmentSettings) owner;
         owner.getApplicationContext().bindService(new Intent(owner, BtleService.class), this, Context.BIND_AUTO_CREATE);
     }
@@ -52,24 +52,25 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
 
         ///< Unbind the service when the activity is destroyed
         getActivity().getApplicationContext().unbindService(this);
-        Log.i("metawear","onDestroy");
+        Log.i("metawear","DF onDestroy");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
-        Log.i("metawear","10a");
+        Log.i("metawear","DF onCreateView Inflate");
         return inflater.inflate(R.layout.activity_device_setup_fragment, container, false);
     }
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
+        Log.i("metawear","DF onserv connected");
         metawear = ((BtleService.LocalBinder) service).getMetaWearBoard(settings.getBtDevice());
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        Log.i("metawear","10b");
+        Log.i("metawear","DF on serv disconnected");
 
     }
 
