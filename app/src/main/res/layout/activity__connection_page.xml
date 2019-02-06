@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:text="Connect Sensors"
         android:textAlignment="textStart"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/Green"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

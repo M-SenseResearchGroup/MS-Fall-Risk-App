@@ -16,6 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.mbientlab.metawear.Data;
+import com.mbientlab.metawear.Route;
+import com.mbientlab.metawear.Subscriber;
+import com.mbientlab.metawear.builder.RouteBuilder;
+import com.mbientlab.metawear.data.Acceleration;
+import com.mbientlab.metawear.module.Accelerometer;
 
 import com.mbientlab.metawear.MetaWearBoard;
 import com.mbientlab.metawear.android.BtleService;
@@ -29,7 +37,7 @@ import static android.content.DialogInterface.*;
 
 public class DeviceSetupActivity extends AppCompatActivity implements ServiceConnection, DeviceSetupActivityFragment.FragmentSettings {
     public final static String EXTRA_BT_DEVICE= "com.mbientlab.metawear.starter.DeviceSetupActivity.EXTRA_BT_DEVICE";
-
+    private Accelerometer accelerometer; //for accelerometer in onService Connected
     public static class ReconnectDialogFragment extends DialogFragment implements  ServiceConnection {
         private static final String KEY_BLUETOOTH_DEVICE = "com.mbientlab.metawear.starter.DeviceSetupActivity.ReconnectDialogFragment.KEY_BLUETOOTH_DEVICE";
 
@@ -98,6 +106,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         Log.i("metawear","10");
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i("metawear","menu"); //this happens after connection to sensor
@@ -129,6 +138,10 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         metawear = ((BtleService.LocalBinder) service).getMetaWearBoard(btDevice);
+        accelerometer= metawear.getModule(Accelerometer.class);
+        accelerometer.configure()
+                .odr(32.2f)       // Set sampling frequency to 25Hz, or closest valid ODR
+                .commit();
         metawear.onUnexpectedDisconnect(status -> {
             ReconnectDialogFragment dialogFragment= ReconnectDialogFragment.newInstance(btDevice);
             dialogFragment.show(getSupportFragmentManager(), RECONNECT_DIALOG_TAG);
@@ -154,6 +167,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         Log.i("metawear","disconnect2");
 
     }
+
 
     @Override
     public BluetoothDevice getBtDevice() {

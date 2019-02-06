@@ -3,7 +3,7 @@ package com.msense.ms_fall_risk_application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mbientlab.metawear.module.Accelerometer;
+
 
 
 
