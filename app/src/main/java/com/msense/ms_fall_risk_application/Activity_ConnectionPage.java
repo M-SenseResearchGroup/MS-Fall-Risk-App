@@ -1,4 +1,6 @@
 package com.msense.ms_fall_risk_application;
+// in between page to confirm connection process (likely unnecessary)
+
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

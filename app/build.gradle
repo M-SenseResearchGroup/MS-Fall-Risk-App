@@ -36,7 +36,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.mbientlab.metawear.tutorial.starter"
+        applicationId "com.msense.ms_fall_risk_application"
         minSdkVersion 18
         targetSdkVersion rootProject.ext.compileSdkVersion
         versionCode 1

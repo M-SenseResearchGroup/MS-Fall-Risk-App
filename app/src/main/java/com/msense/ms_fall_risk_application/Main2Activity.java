@@ -1,4 +1,5 @@
 package com.msense.ms_fall_risk_application;
+//This is the first page you seen on launch
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,8 @@ public class Main2Activity extends AppCompatActivity {
         Intent intent = new Intent(this, Activity_ConnectionPage.class);
         startActivity(intent);
     }
-    public void toLanding(View view) {
-        Intent intent = new Intent(this, landing.class);
-        startActivity(intent);
-    }
+//    public void toLanding(View view) {
+//        Intent intent = new Intent(this, landing.class);
+//        startActivity(intent);
+//    }
 }
