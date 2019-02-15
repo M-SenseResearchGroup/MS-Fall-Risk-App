@@ -38,7 +38,7 @@ import bolts.Continuation;
 import bolts.Task;
 
 public class calibration extends AppCompatActivity implements ServiceConnection {
-    public final static String EXTRA_BT_DEVICE= "com.mbientlab.metawear.starter.DeviceSetupActivity.EXTRA_BT_DEVICE";
+    public final static String EXTRA_BT_DEVICE= "com.msense.ms_fall_risk_application.calibration.EXTRA_BT_DEVICE";
     private Accelerometer accelerometer;
     //    private AccelerometerBosch accBosch;
     private BtleService.LocalBinder serviceBinder;

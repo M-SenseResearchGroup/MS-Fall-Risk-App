@@ -1,6 +1,9 @@
 package com.msense.ms_fall_risk_application;
 //This the activity that performs the bluetooth scan
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -9,7 +12,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,13 +55,25 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     public MainActivity() {
         stateToBoards = new HashMap<>();
     } //for hashmap
-//    private AccelerometerBosch accBosch;
-
+    //    private AccelerometerBosch accBosch;
+    private NotificationManagerCompat notificationManager;
+    public static final String CHANNEL_ID = "FALL RISK CHANNEL";
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel fallchannel = new NotificationChannel(
+                    CHANNEL_ID, "Fall Risk Channel", NotificationManager.IMPORTANCE_HIGH);
+            fallchannel.enableVibration(true);
+            fallchannel.setDescription("This is channel allows for notifcations to occur in the event of a detected increased fall risk");
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(fallchannel);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //This sets the layout for this activity and binds the service on its creation
         super.onCreate(savedInstanceState);
-
+        createNotificationChannel();
+        notificationManager = NotificationManagerCompat.from(this);
         setContentView(R.layout.activity_main);
         Log.i("metawear","mAOncreate");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
@@ -148,6 +166,18 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
                         //starts the activity above, and requests a result (navActivity Intent), REQUEST_START_APP is an integer code to identify request
 //                        startActivityForResult(navActivityIntent, REQUEST_START_APP);
                         if (stateToBoards.size() == 2){
+                            long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+                            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                                    .setSmallIcon(R.drawable.ic_walk)
+                                    .setContentTitle("HIGH FALL RISK DETECTED")
+                                    //.setPriority(NotificationCompat.PRIORITY_HIGH)
+                                    //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                    .setVibrate(pattern)
+                                    .setStyle(new NotificationCompat.InboxStyle()
+                                            .addLine("Find A Place To Sit")
+                                            .addLine("Focus on your balance"))
+                                    .build();
+                            notificationManager.notify(115, notification);
 
 
                             Intent navActivityIntent = new Intent(MainActivity.this, calibration.class);
