@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.mbientlab.metawear.data.Acceleration;
 import com.mbientlab.metawear.data.SensorOrientation;
 import com.mbientlab.metawear.module.Accelerometer;
 import com.mbientlab.metawear.module.AccelerometerBosch;
+import com.mbientlab.metawear.module.Haptic;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -57,8 +59,6 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
                 accelerometer.acceleration().start();
                 accelerometer.start();
 
-//                accBosch.orientation().start();
-//                accBosch.start();
             }
         });
         findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
@@ -67,46 +67,49 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
                 accelerometer.acceleration().stop();
                 accelerometer.stop();
 
-//                accBosch.orientation().stop();
-//                accBosch.stop();
             }
         });
-//        findViewById(R.id.connection).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(this, MainActivity.class);
-//                Log.i("metawear","chyea1");
-//                startActivity(intent);
 //
-//            }
-//        });
+        ((TextView) findViewById(R.id.status_mac_address)).setText(btDevice.getAddress());
+//
+//
 
-        // copy the data into the fields
-        ((EditText) findViewById(R.id.status_mac_address)).setText(btDevice.getAddress());
-//
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            Log.i("metawear", "CDA View");
-//            RecyclerView.ViewHolder viewHolder;
-//
-//            if (convertView == null) {
-//                convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_device_state, parent, false);
-//
-//                viewHolder = new RecyclerView.ViewHolder();
-//                viewHolder.deviceName = convertView.findViewById(R.id.status_device_name);
-//                viewHolder.deviceAddress = convertView.findViewById(R.id.status_mac_address);
-//
-//                convertView.setTag(viewHolder);
-//            }
-//
-//            final String deviceName= btDevice.getName();
-//
-//            viewHolder.deviceAddress.setText(btDevice.getAddress());
-//            return convertView;
-//        };
-//        private class ViewHolder {
-//            TextView deviceName, deviceAddress;
-//
-//        }
+        findViewById(R.id.vib_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                metawear.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+                metawear.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+                metawear.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+                metawear.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+
+
+                accelerometer = metawear.getModule(Accelerometer.class);
+                // enable low-g detection, use sum criteria,
+                // detect when sum < 0.333g
+
+                accelerometer.acceleration().addRouteAsync(new RouteBuilder() {
+                    @Override
+                    public void configure(RouteComponent source) {
+                        source.stream(new Subscriber() {
+                            @Override
+                            public void apply(Data data, Object... env) {
+                                Log.i("metawear", data.value(Acceleration.class).toString());
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(getString(R.string.app_name));
+        mToolbar.setNavigationIcon(R.drawable.back_24dp);
+
+        mToolbar.setNavigationOnClickListener(view -> finish(
+
+
+
+        ));
 
     }
 
@@ -155,27 +158,6 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
             }
         });
 
-
-//        AccelerometerBosch accBosch = metawear.getModule(AccelerometerBosch.class);
-//        accBosch.orientation().addRouteAsync(new RouteBuilder() {
-//            @Override
-//            public void configure(RouteComponent source) {
-//                source.stream(new Subscriber() {
-//                    @Override
-//                    public void apply(Data data, Object... env) {
-//                        Log.i("MainActivity", "Orientation = " + data.value(SensorOrientation.class));
-//                    }
-//                });
-//            }
-//        }).continueWith(new Continuation<Route, Void>() {
-//            @Override
-//            public Void then(Task<Route> task) throws Exception {
-//                accBosch.orientation().start();
-//                accBosch.start();
-//                return null;
-//            }
-//        });
-
         serviceBinder = (BtleService.LocalBinder) service;
         Log.i("metawear","mA BLE Service Connected");
     }
@@ -185,4 +167,5 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
         Log.i("metawear","mA disconnect");
 
     }
+
 }

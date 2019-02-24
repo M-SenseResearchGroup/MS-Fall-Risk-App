@@ -18,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -78,7 +79,14 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         Log.i("metawear","mAOncreate");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(getString(R.string.app_name));
+        mToolbar.setNavigationIcon(R.drawable.back_24dp);
 
+        mToolbar.setNavigationOnClickListener(view -> finish(
+
+
+        ));
     }
 
     @Override
@@ -122,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         Context context = getApplicationContext();
         CharSequence text = "We've selected a device! Yay Toast!";
         int duration = Toast.LENGTH_SHORT;
-
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
         board = serviceBinder.getMetaWearBoard(device); //binds mac address associated with selected device
@@ -165,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
 //                        navActivityIntent.putExtra(DeviceSetupActivity.EXTRA_BT_DEVICE, device);
                         //starts the activity above, and requests a result (navActivity Intent), REQUEST_START_APP is an integer code to identify request
 //                        startActivityForResult(navActivityIntent, REQUEST_START_APP);
-                        if (stateToBoards.size() == 2){
+                        if (stateToBoards.size() == 1){
                             long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
                             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                                     .setSmallIcon(R.drawable.ic_walk)
@@ -190,39 +197,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
                             Log.i("metawear",NUMBER_DEVICES);
 
                         }
-//                        accelerometer= board.getModule(Accelerometer.class);
-//                        // enable low-g detection, use sum criteria,
-//                        // detect when sum < 0.333g
-//                        accelerometer.configure()
-//                                .odr(32.5f)       // Set sampling frequency to 25Hz, or closest valid ODR
-//                                .range(4f)      // Set data range to +/-4g, or closet valid range
-//                                .commit();
 //
-//                        Log.i("metawear", "Actual Odr = " + accelerometer.getOdr());
-//                        Log.i("metawear", "Actual Range = " + accelerometer.getRange());
-//                        accelerometer.acceleration().addRouteAsync(new RouteBuilder() {
-//                            @Override
-//                            public void configure(RouteComponent source) {
-//                                source.stream(new Subscriber() {
-//                                    @Override
-//                                    public void apply(Data data, Object... env) {
-//                                        Log.i("metawear", data.value(Acceleration.class).toString());
-//                                    }
-//                                });
-//                            }
-//                        });
-//                        AccelerometerBosch accBosch = board.getModule(AccelerometerBosch.class);
-//                        accBosch.orientation().addRouteAsync(new RouteBuilder() {
-//                            @Override
-//                            public void configure(RouteComponent source) {
-//                                source.stream(new Subscriber() {
-//                                    @Override
-//                                    public void apply(Data data, Object... env) {
-//                                        Log.i("metawear", "Orientation = " + data.value(SensorOrientation.class));
-//                                    }
-//                                });
-//                            }
-//                        });
                     }
                     Log.i("metawear","mA task continued");
                     return null; //if task is cancelled
