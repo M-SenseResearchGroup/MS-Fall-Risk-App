@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/metawear_accel"
+    android:longClickable="true"
+
     tools:context="com.msense.ms_fall_risk_application.calibration">
 
     <android.support.v7.widget.Toolbar
@@ -15,8 +18,10 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
+
+
     <RelativeLayout
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -25,20 +30,43 @@
         tools:context="com.msense.ms_fall_risk_application.MainActivity"
         tools:layout_editor_absoluteX="3dp">
 
+
+        <TextView
+            android:id="@+id/status_mac_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:layout_centerInParent="true"
+            android:textColor="@color/Navy"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/accelValue"
+            android:layout_below="@+id/status_mac_address"
+            android:layout_marginTop="8dp"
+            android:layout_centerInParent="true"/>
+
         <Button
             android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/status_mac_address"
+            android:layout_below="@+id/accelValue"
             android:layout_marginTop="8dp"
             android:text="Accel Start"
- />
+            />
 
         <Button
             android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/vib_button"
+            android:layout_below="@+id/start"
             android:layout_marginTop="8dp"
             android:text="Accel stop"
             app:layout_constraintTop_toBottomOf="@+id/start" />
@@ -48,19 +76,12 @@
             android:id="@+id/vib_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/start"
+            android:layout_below="@+id/stop"
             android:layout_marginTop="8dp"
-            android:text="Vibrate"
- />
+            android:text="Vibrate" />
 
-        <TextView
-            android:id="@+id/status_mac_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            android:text="TextView" />
+
 
     </RelativeLayout>
+
 </LinearLayout>

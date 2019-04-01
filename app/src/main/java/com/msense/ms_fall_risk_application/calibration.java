@@ -36,6 +36,8 @@ import com.mbientlab.metawear.module.Accelerometer;
 import com.mbientlab.metawear.module.AccelerometerBosch;
 import com.mbientlab.metawear.module.Haptic;
 
+import org.w3c.dom.Text;
+
 import bolts.Continuation;
 import bolts.Task;
 
@@ -46,12 +48,19 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
     private BtleService.LocalBinder serviceBinder;
     private BluetoothDevice btDevice;
     private MetaWearBoard metawear;
+
+    TextView accelValue;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
         btDevice= getIntent().getParcelableExtra(EXTRA_BT_DEVICE);
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
+
+        accelValue = (TextView) findViewById(R.id.accelValue);
+
 
         findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +162,7 @@ public class calibration extends AppCompatActivity implements ServiceConnection 
                     @Override
                     public void apply(Data data, Object... env) {
                         Log.i("metawear", data.value(Acceleration.class).toString());
+                        accelValue.setText(" " + data.value(Acceleration.class));
                     }
                 });
             }

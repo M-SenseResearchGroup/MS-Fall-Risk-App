@@ -50,15 +50,17 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     private MetaWearBoard board;
     private final HashMap<String, MetaWearBoard> stateToBoards; //for hashmap
     private BtleService.LocalBinder binder;
-    public String NUMBER_DEVICES = "NUMBER_DEVICES_1" ;
+    public String NUMBER_DEVICES = "NUMBER_DEVICES_1";
 
 
     public MainActivity() {
         stateToBoards = new HashMap<>();
     } //for hashmap
+
     //    private AccelerometerBosch accBosch;
     private NotificationManagerCompat notificationManager;
     public static final String CHANNEL_ID = "FALL RISK CHANNEL";
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel fallchannel = new NotificationChannel(
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         createNotificationChannel();
         notificationManager = NotificationManagerCompat.from(this);
         setContentView(R.layout.activity_main);
-        Log.i("metawear","mAOncreate");
+        Log.i("metawear", "mAOncreate");
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     @Override
     public void onDestroy() { //on activities conclusions service is unbinded
         super.onDestroy();
-        Log.i("metawear","mAOndestroy");
+        Log.i("metawear", "mAOndestroy");
         ///< Unbind the service when the activity is destroyed
         getApplicationContext().unbindService(this);
     }
@@ -100,24 +102,22 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) { //automatically created
         serviceBinder = (BtleService.LocalBinder) service;
-        Log.i("metawear","mA BLE Service Connected");
-
-
+        Log.i("metawear", "mA BLE Service Connected");
 
 
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {//automatically created
-        Log.i("metawear","mA disconnect");
+        Log.i("metawear", "mA disconnect");
 
     }
 
     @Override
     public UUID[] getFilterServiceUuids() {
         //filters bluetooth devices for just the metawear boards
-        Log.i("metawear","UUID filter");
-        return new UUID[] {MetaWearBoard.METAWEAR_GATT_SERVICE};
+        Log.i("metawear", "UUID filter");
+        return new UUID[]{MetaWearBoard.METAWEAR_GATT_SERVICE};
     }
 
     @Override
@@ -138,12 +138,12 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         String newDeviceState = NUMBER_DEVICES;
         stateToBoards.put(board.getMacAddress(), board);
 //        Log.i("metawear", NUMBER_DEVICES);
-        Log.i("metawear",board.getMacAddress());
+        Log.i("metawear", board.getMacAddress());
 
 
         //-----------------------------
 
-        Log.i("metawear","mA open connect dialog");
+        Log.i("metawear", "mA open connect dialog");
         //Connection Dialog
         final ProgressDialog connectDialog = new ProgressDialog(this);
         connectDialog.setTitle(getString(R.string.title_connecting));
@@ -153,17 +153,16 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         connectDialog.setIndeterminate(true);
         connectDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), (dialogInterface, i) -> board.disconnectAsync());
         connectDialog.show();
-        Log.i("metawear","connection dialog done for");
+        Log.i("metawear", "connection dialog done for");
         //Connection request, including if task is faulted
         board.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : reconnect(board))
                 .continueWith(task -> {
                     if (!task.isCancelled()) { //to do, to connect
                         //dismiss connection dialog
 
-                        Log.i("metawear","connect");
+                        Log.i("metawear", "connect");
 
                         runOnUiThread(connectDialog::dismiss);
-
 
 
                         //call device setup activity
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
 //                        navActivityIntent.putExtra(DeviceSetupActivity.EXTRA_BT_DEVICE, device);
                         //starts the activity above, and requests a result (navActivity Intent), REQUEST_START_APP is an integer code to identify request
 //                        startActivityForResult(navActivityIntent, REQUEST_START_APP);
-                        if (stateToBoards.size() == 1){
+                        if (stateToBoards.size() == 1) {
                             long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
                             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                                     .setSmallIcon(R.drawable.ic_walk)
@@ -191,18 +190,17 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
                             navActivityIntent.putExtra(calibration.EXTRA_BT_DEVICE, device);
                             startActivity(navActivityIntent);
 
-                        }
-                        else {
-                            String NUMBER_DEVICES = "NUMBER_DEVICES_2" ;
-                            Log.i("metawear",NUMBER_DEVICES);
+                        } else {
+                            String NUMBER_DEVICES = "NUMBER_DEVICES_2";
+                            Log.i("metawear", NUMBER_DEVICES);
 
                         }
 //
                     }
-                    Log.i("metawear","mA task continued");
+                    Log.i("metawear", "mA task continued");
                     return null; //if task is cancelled
                 });
-        Log.i("metawear","mAondevselected");
+        Log.i("metawear", "mAondevselected");
     }
 
     //    public void addNewDevice(BluetoothDevice btDevice) {
