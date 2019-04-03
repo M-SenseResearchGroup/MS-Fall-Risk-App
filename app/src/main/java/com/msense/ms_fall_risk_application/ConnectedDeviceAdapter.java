@@ -21,11 +21,15 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView= LayoutInflater.from(getContext()).inflate(R.layout.activity_calibration, parent, false);
+            convertView= LayoutInflater.from(getContext()).inflate(R.layout.sensor_list, parent, false);
 
             viewHolder= new ViewHolder();
+            viewHolder.deviceName= convertView.findViewById(R.id.status_device_name);
             viewHolder.deviceAddress= convertView.findViewById(R.id.status_mac_address);
             viewHolder.deviceOrientation= convertView.findViewById(R.id.accelValue);
+
+            viewHolder.connectingText= convertView.findViewById(R.id.text_connecting);
+            viewHolder.connectingProgress= convertView.findViewById(R.id.connecting_progress);
 
             convertView.setTag(viewHolder);
         } else {
@@ -43,7 +47,8 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
         viewHolder.deviceAddress.setText(state.btDevice.getAddress());
 
         if (state.connecting) {
-
+            viewHolder.connectingProgress.setVisibility(View.VISIBLE);
+            viewHolder.connectingText.setVisibility(View.VISIBLE);
             viewHolder.deviceOrientation.setVisibility(View.GONE);
 
         } else {
@@ -56,30 +61,33 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
 
 
-
+            viewHolder.connectingProgress.setVisibility(View.GONE);
+            viewHolder.connectingText.setVisibility(View.GONE);
         }
         Log.i("metawear","CDA ViewEnd");
         return convertView;
     }
 
     private class ViewHolder {
-        TextView deviceName, deviceAddress, deviceOrientation;
+        TextView deviceName, deviceAddress, deviceOrientation, connectingText;
 
+        ProgressBar connectingProgress;
 
     }
-
-    public void update(DeviceState newState) {
-        int pos= getPosition(newState);
-        Log.i("metawear","update");
-        if (pos == -1) {
-            add(newState);
-        } else {
-            Log.i("metawear","else");
-            DeviceState current= getItem(pos);
-
-            current.deviceOrientation= newState.deviceOrientation;
-            notifyDataSetChanged();
-        }
-    }
-
+//
+//    public void update(DeviceState newState) {
+//        int pos= getPosition(newState);
+//        Log.i("metawear","CDA: Device Selected 4"+pos);
+//        Log.i("metawear","update");
+//
+//        if (pos == -1) {
+//            add(newState);
+//        } else {
+//            Log.i("metawear","else");
+//            DeviceState current= getItem(pos);
+//
+//            current.deviceOrientation= newState.deviceOrientation;
+//            notifyDataSetChanged();
+//        }
+//    }
 }

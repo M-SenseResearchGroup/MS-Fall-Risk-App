@@ -8,37 +8,25 @@
     >
 
 
-
     <Button
-        android:layout_weight="1"
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="200dp"
+
+        android:layout_weight="1"
         android:onClick="toConnectionPage"
         android:text="@string/connect_sensors_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:onClick="toLanding"
-        android:text="@string/proceed_to_landing_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:text="@string/title_launch"
         android:textColor="@color/Navy"
@@ -65,13 +53,13 @@
         android:layout_width="206dp"
         android:layout_height="91dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         app:srcCompat="@drawable/msense" />
 
 

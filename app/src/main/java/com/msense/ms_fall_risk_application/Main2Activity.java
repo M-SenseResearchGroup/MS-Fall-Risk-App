@@ -15,11 +15,9 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void toConnectionPage(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+
+        Intent intent = new Intent(this, MainActivity.class );
         startActivity(intent);
     }
-    public void toLanding(View view) {
-        Intent intent = new Intent(this, calibration.class);
-        startActivity(intent);
-    }
+
 }

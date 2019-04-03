@@ -7,12 +7,12 @@ import android.util.Log;
 class DeviceState {
     final BluetoothDevice btDevice;
     String deviceOrientation;
-    boolean pressed, connecting;
+    boolean connecting;
 
     DeviceState(BluetoothDevice btDevice) {
         this.btDevice= btDevice;
         this.deviceOrientation= null;
-        pressed= false;
+
         Log.i("metawear","DS DeviceState");
     }
 
