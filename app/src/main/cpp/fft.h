@@ -17,11 +17,15 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void b_fft(const double x_data[], const int x_size[2], emxArray_creal_T
                   *y);
+extern void c_fft(const emxArray_real_T *x, double varargin_1, emxArray_creal_T *
+                  y);
+extern void d_fft(const emxArray_real_T *x, double varargin_1, emxArray_creal_T *
+                  y);
 extern void fft(const double x_data[], const int x_size[1], emxArray_creal_T *y);
 
 #endif

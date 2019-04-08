@@ -17,11 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void calibrate(const double x[375], const double r[9], double g, double
-                      y[375]);
+extern void calibrate(const double x_data[], const int x_size[2], const double
+                      r[9], double g, double y_data[], int y_size[2]);
 
 #endif
 

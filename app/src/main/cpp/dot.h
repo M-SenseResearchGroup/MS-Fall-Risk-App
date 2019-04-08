@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void dot(const double a[9394], const double b[9394], double c[1342]);

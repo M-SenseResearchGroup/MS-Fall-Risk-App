@@ -10,7 +10,7 @@
  */
 
 /*************************************************************************/
-/* This automatically generated example C main file shows how to call    */
+/* This automatically generated example C++ main file shows how to call  */
 /* entry-point functions that MATLAB Coder generated. You must customize */
 /* this file for your application. Do not modify this file directly.     */
 /* Instead, make a copy of this file, modify it, and integrate it into   */
@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern int main(int argc, const char * const argv[]);

@@ -17,15 +17,22 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_bsxfun(const double a_data[], const int a_size[2], double c_data[],
-                     int c_size[2]);
-extern void bsxfun(const double a_data[], const int a_size[1], double c[125]);
-extern void c_bsxfun(const double a_data[], const int a_size[1], double c[63]);
+extern void b_bsxfun(const emxArray_real_T *a, const double b_data[], const int
+                     b_size[2], emxArray_real_T *c);
+extern void bsxfun(const double a_data[], const int a_size[2], double b, double
+                   c_data[], int c_size[2]);
+extern void c_bsxfun(const double a_data[], const int a_size[1], double c_data[],
+                     int c_size[1]);
 extern void d_bsxfun(const double a_data[], const int a_size[2], double c_data[],
                      int c_size[2]);
+extern void e_bsxfun(const emxArray_real_T *a, const emxArray_real_T *b,
+                     emxArray_real_T *c);
+extern void f_bsxfun(const emxArray_real_T *a, const double b_data[], const int
+                     b_size[1], emxArray_real_T *c);
+extern void g_bsxfun(const emxArray_real_T *a, double c[63]);
 
 #endif
 

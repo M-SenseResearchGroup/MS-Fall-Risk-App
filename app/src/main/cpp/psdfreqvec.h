@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void psdfreqvec(double varargin_4, double w_data[], int w_size[1]);

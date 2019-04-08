@@ -17,19 +17,16 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_welchparse(const double x1[125], double varargin_4, double x[125],
-  double *k, double *L, double *options_nfft, double *options_Fs, boolean_T
-  *options_maxhold, boolean_T *options_minhold, char options_range[8]);
-extern void c_welchparse(double varargin_4, double *k, double *L, double
-  *options_nfft, double *options_Fs, boolean_T *options_maxhold, boolean_T
-  *options_minhold, char options_range[8]);
-extern void welchparse(const double x1[500], const double varargin_1[63], double
-  varargin_4, double x[500], double win[63], double *k, double *L, double
-  *options_nfft, double *options_Fs, boolean_T *options_maxhold, boolean_T
-  *options_minhold, char options_range[8]);
+extern void parse_inputs(const double x1_data[], const int x1_size[2], double
+  varargin_4, double x_data[], int x_size[1], double *Lx, char winName_data[],
+  int winName_size[2], int winParam_size[2], double opts[2]);
+extern void segment_info(double *L, double *noverlap);
+extern void welch_options(double N, double varargin_2, double *options1_nfft,
+  double *options1_Fs, boolean_T *options1_maxhold, boolean_T *options1_minhold,
+  char options1_range[8]);
 
 #endif
 

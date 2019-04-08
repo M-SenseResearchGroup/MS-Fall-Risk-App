@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void b_strcmp(const char a_data[], const int a_size[2], boolean_T b_bool

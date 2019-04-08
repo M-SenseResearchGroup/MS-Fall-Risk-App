@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void insertionsort(int x[4], const cell_wrap_28 cmp_tunableEnvironment[2]);
+extern void insertionsort(int x[4], const cell_wrap_3 cmp_tunableEnvironment[2]);
 
 #endif
 

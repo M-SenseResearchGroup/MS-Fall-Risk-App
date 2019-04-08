@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void Gaussian(const double svT[9394], const double svInnerProduct[1342],

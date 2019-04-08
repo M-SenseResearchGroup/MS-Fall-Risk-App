@@ -5,7 +5,7 @@
  *
  * rtGetInf.h
  *
- * Code generation for function 'calibrate'
+ * Code generation for function 'calc_fall_risk'
  *
  */
 

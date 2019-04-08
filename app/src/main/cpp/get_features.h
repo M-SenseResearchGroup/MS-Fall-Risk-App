@@ -17,11 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void get_features(const double a1[375], const double a2[375], double sf,
-  double feat[106]);
+extern void get_features(const double a1_data[], const double a2_data[], const
+  int a2_size[2], double sf, double feat[106]);
 
 #endif
 

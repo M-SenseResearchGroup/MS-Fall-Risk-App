@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void mpower(const emxArray_real_T *a, emxArray_real_T *c);
+extern double mpower(double b);
 
 #endif
 

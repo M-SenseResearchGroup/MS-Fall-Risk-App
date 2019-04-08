@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern double vvarstd(const double v[125]);
+extern double vvarstd(const double v_data[], const int v_size[1], int n);
 
 #endif
 

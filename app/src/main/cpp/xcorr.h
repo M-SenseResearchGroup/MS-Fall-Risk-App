@@ -17,12 +17,16 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_xcorr(const double x[125], const double varargin_1[125], double c
-                    [249], double lags[249]);
-extern void xcorr(const double x[125], double c[249], double lags[249]);
+extern void c_xcorr(const emxArray_real_T *x, emxArray_real_T *c, double
+                    lags_data[], int lags_size[2]);
+extern void d_xcorr(const double x_data[], const int x_size[2], const
+                    emxArray_real_T *varargin_1, emxArray_real_T *c,
+                    emxArray_real_T *lags);
+extern void xcorr(const double x_data[], const int x_size[2], double c_data[],
+                  int c_size[2], double lags_data[], int lags_size[2]);
 
 #endif
 

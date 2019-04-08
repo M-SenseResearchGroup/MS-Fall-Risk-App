@@ -17,12 +17,13 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_bwfilt(const double in[500], const emxArray_real_T *cf, double sf,
-                     double out[500]);
-extern void bwfilt(const double in[125], double sf, double out[125]);
+extern void b_bwfilt(const emxArray_real_T *in, const emxArray_real_T *cf,
+                     double sf, emxArray_real_T *out);
+extern void bwfilt(const double in_data[], const int in_size[2], double sf,
+                   emxArray_real_T *out);
 
 #endif
 

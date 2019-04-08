@@ -17,17 +17,17 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_extrema(const double x_data[], const int x_size[2],
-                      emxArray_real_T *b_max, emxArray_real_T *imax);
-extern void c_extrema(const double x_data[], const int x_size[1],
-                      emxArray_real_T *b_max, emxArray_real_T *imax);
-extern void d_extrema(const double x[500], emxArray_real_T *b_max,
+extern void b_extrema(const emxArray_real_T *x, emxArray_real_T *b_max,
+                      emxArray_real_T *imax);
+extern void c_extrema(const emxArray_real_T *x, emxArray_real_T *b_max,
+                      emxArray_real_T *imax);
+extern void d_extrema(const emxArray_real_T *x, emxArray_real_T *b_max,
                       emxArray_real_T *imax, emxArray_real_T *b_min,
                       emxArray_real_T *imin);
-extern void e_extrema(const double x[500], emxArray_real_T *b_max,
+extern void e_extrema(const emxArray_real_T *x, emxArray_real_T *b_max,
                       emxArray_real_T *imax);
 extern void extrema(const emxArray_creal_T *x, emxArray_creal_T *b_max,
                     emxArray_real_T *imax);

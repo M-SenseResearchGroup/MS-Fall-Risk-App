@@ -17,15 +17,13 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void b_nullAssignment(emxArray_real_T *x, const emxArray_int32_T *idx);
 extern void c_nullAssignment(emxArray_real_T *x, const emxArray_boolean_T *idx);
-extern void d_nullAssignment(double x_data[], int x_size[2], const int idx_data[],
-  const int idx_size[2]);
-extern void e_nullAssignment(double x_data[], int x_size[1], const boolean_T
-  idx_data[], const int idx_size[1]);
+extern void d_nullAssignment(emxArray_real_T *x, const emxArray_int32_T *idx);
+extern void e_nullAssignment(emxArray_real_T *x, const emxArray_int32_T *idx);
 extern void f_nullAssignment(emxArray_creal_T *x, const emxArray_boolean_T *idx);
 extern void g_nullAssignment(emxArray_real_T *x, const emxArray_boolean_T *idx);
 extern void h_nullAssignment(emxArray_real_T *x, int idx);

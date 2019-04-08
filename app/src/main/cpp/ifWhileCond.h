@@ -17,11 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern boolean_T b_ifWhileCond(const emxArray_boolean_T *x);
-extern boolean_T c_ifWhileCond(const boolean_T x_data[], const int x_size[2]);
+extern boolean_T c_ifWhileCond(const emxArray_boolean_T *x);
 extern boolean_T ifWhileCond(const boolean_T x_data[], const int x_size[3]);
 
 #endif

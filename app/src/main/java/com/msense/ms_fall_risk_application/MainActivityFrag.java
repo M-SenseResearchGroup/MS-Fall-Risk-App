@@ -242,11 +242,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
             Accelerometer accelerometer = selectedBoard.getModule(Accelerometer.class);
             accelerometer.stop();
-            if (accelerometer instanceof AccelerometerBosch) {
-                ((AccelerometerBosch) accelerometer).orientation().stop();
-            } else {
-                ((AccelerometerMma8452q) accelerometer).orientation().stop();
-            }
+
 
             selectedBoard.tearDown();
             selectedBoard.getModule(Debug.class).disconnectAsync();

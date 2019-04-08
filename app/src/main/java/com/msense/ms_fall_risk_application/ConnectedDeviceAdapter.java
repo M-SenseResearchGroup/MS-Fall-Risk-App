@@ -74,20 +74,20 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
         ProgressBar connectingProgress;
 
     }
-//
-//    public void update(DeviceState newState) {
-//        int pos= getPosition(newState);
-//        Log.i("metawear","CDA: Device Selected 4"+pos);
-//        Log.i("metawear","update");
-//
-//        if (pos == -1) {
-//            add(newState);
-//        } else {
-//            Log.i("metawear","else");
-//            DeviceState current= getItem(pos);
-//
-//            current.deviceOrientation= newState.deviceOrientation;
-//            notifyDataSetChanged();
-//        }
-//    }
+
+    public void update(DeviceState newState) {
+        int pos= getPosition(newState);
+        Log.i("metawear","CDA: Device Selected 4"+pos);
+        Log.i("metawear","update");
+
+        if (pos == -1) {
+            add(newState);
+        } else {
+            Log.i("metawear","else");
+            DeviceState current= getItem(pos);
+
+            current.deviceOrientation= newState.deviceOrientation;
+            notifyDataSetChanged();
+        }
+    }
 }

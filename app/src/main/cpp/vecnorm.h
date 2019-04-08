@@ -17,10 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void vecnorm(const double x[250], double y[125]);
+extern void vecnorm(const double x_data[], const int x_size[2], double y_data[],
+                    int y_size[2]);
 
 #endif
 

@@ -17,10 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void myfiltfilt(const double b[3], const double a[3], double x[500]);
+extern void myfiltfilt(const double b[3], const double a[3], emxArray_real_T *x,
+  emxArray_real_T *y);
 
 #endif
 

@@ -17,20 +17,17 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
 extern void b_computeperiodogram(const double x_data[], const int x_size[2],
-  const double win[125], const char esttype_data[], const int esttype_size[2],
+  const double win_data[], const char esttype_data[], const int esttype_size[2],
   double Fs, emxArray_creal_T *Pxx, double F_data[], int F_size[1]);
-extern void c_computeperiodogram(const double x_data[], const int x_size[1],
-  const double win[63], const char esttype_data[], const int esttype_size[2],
-  double Fs, emxArray_creal_T *Pxx, double F_data[], int F_size[1]);
+extern void c_computeperiodogram(const emxArray_real_T *x, const double win[63],
+  const char esttype_data[], const int esttype_size[2], double Fs,
+  emxArray_creal_T *Pxx, double F_data[], int F_size[1]);
 extern void computeperiodogram(const double x_data[], const int x_size[1], const
-  double win[125], const char esttype_data[], const int esttype_size[2], double
-  Fs, emxArray_creal_T *Pxx, double F_data[], int F_size[1]);
-extern void d_computeperiodogram(const double x_data[], const int x_size[2],
-  const double win[63], const char esttype_data[], const int esttype_size[2],
+  double win_data[], const char esttype_data[], const int esttype_size[2],
   double Fs, emxArray_creal_T *Pxx, double F_data[], int F_size[1]);
 
 #endif

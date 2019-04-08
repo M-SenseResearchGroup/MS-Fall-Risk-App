@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern double get_strides(const double thigh_acc[1500], double asf);
+extern double get_strides(const emxArray_real_T *thigh_acc, double asf);
 
 #endif
 

@@ -17,10 +17,10 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void pre_process_feats(const double feats1[106], const double mu[106],
+extern void pre_process_feats(const double feats_data[], const double mu[106],
   const double sigma[106], const double pc[742], double feats[7]);
 
 #endif

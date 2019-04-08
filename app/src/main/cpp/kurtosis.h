@@ -17,10 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern double kurtosis(const double x[125]);
+extern void b_kurtosis(const emxArray_real_T *x, double k_data[], int k_size[2]);
+extern double kurtosis(const double x_data[], const int x_size[2]);
 
 #endif
 

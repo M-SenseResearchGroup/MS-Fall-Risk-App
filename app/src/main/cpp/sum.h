@@ -17,11 +17,11 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern double b_sum(void);
-extern double sum(const double x[125]);
+extern double b_sum(const double x_data[]);
+extern void sum(const emxArray_real_T *x, double y_data[], int y_size[2]);
 
 #endif
 

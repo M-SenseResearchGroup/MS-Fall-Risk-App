@@ -17,13 +17,13 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_filter(double b[3], double a[3], const double x[512], const double
-                     zi[2], double y[512]);
-extern void filter(double b[3], double a[3], const double x[137], const double
-                   zi[2], double y[137]);
+extern void b_filter(double b[3], double a[3], const double x[6], const double
+                     zi[2], double y[6], double zf[2]);
+extern void filter(double b[3], double a[3], const emxArray_real_T *x, const
+                   double zi[2], emxArray_real_T *y);
 
 #endif
 

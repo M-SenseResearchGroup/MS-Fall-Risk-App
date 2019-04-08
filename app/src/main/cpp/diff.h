@@ -17,14 +17,12 @@
 #include <stdlib.h>
 #include "rtwtypes.h"
 #include "omp.h"
-#include "getFallClass_types.h"
+#include "calc_fall_risk_types.h"
 
 /* Function Declarations */
-extern void b_diff(const double x_data[], const int x_size[2], double y_data[],
-                   int y_size[2]);
-extern void c_diff(const double x_data[], const int x_size[1], double y_data[],
-                   int y_size[1]);
-extern void d_diff(const double x[500], double y[499]);
+extern void b_diff(const emxArray_real_T *x, emxArray_real_T *y);
+extern void c_diff(const emxArray_real_T *x, emxArray_real_T *y);
+extern void d_diff(const emxArray_real_T *x, emxArray_real_T *y);
 extern void diff(const emxArray_creal_T *x, emxArray_creal_T *y);
 
 #endif
