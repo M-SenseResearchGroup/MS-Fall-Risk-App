@@ -9,6 +9,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,12 +86,46 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 //        final Capture<Accelerometer> accelCapture = new Capture<>();
 
         Log.i("metawear","mAF addNewdevice");
-//        newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
-        newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
+
+
+
+        //newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
+
+
+
+        newBoard.onUnexpectedDisconnect(status -> {
+//            ReconnectDialogFragment dialogFragment= ReconnectDialogFragment.newInstance(btDevice);
+//            dialogFragment.show(getSupportFragmentManager(), RECONNECT_DIALOG_TAG);
+            Log.i("metawear","Unexpected Disconnect Detected");
+            Log.i("metawear","Connection lost, reconnecting to " + btDevice.getAddress());
+            newBoard.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : MainActivityFrag.reconnect(newBoard))
+                    .continueWith((Continuation<Void, Void>) task -> {
+
+                        if (!task.isCancelled()) {
+//                            runOnUiThread(() -> {
+//                                ((DialogFragment) getSupportFragmentManager().findFragmentByTag(RECONNECT_DIALOG_TAG)).dismiss();
+//                                ((DeviceSetupActivityFragment) getSupportFragmentManager().findFragmentById(R.id.device_setup_fragment)).reconnected();
+//                                Log.i("metawear","Reconnection Successful");
+//                            });
+
+                        } else {
+                            Log.i("metawear","Reconnection Successful");
+//                            finish();
+                        }
+
+                        return null;
+                    });
+        });
+
+
+
+
+
+
+
         newBoard.connectAsync().onSuccessTask(task -> {
 
-//        newBoard.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : reconnect(newBoard))
-//                .onSuccessTask(task -> {
+
                     getActivity().runOnUiThread(() -> {
                         newDeviceState.connecting= false;
                         connectedDevices.notifyDataSetChanged();
