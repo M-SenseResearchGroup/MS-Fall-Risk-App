@@ -17,12 +17,18 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.mbientlab.metawear.MetaWearBoard;
+
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_START_BLE_SCAN= 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+         final HashMap<DeviceState, MetaWearBoard> numBoards;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = findViewById(R.id.toolbar);
@@ -42,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> startActivityForResult(new Intent(MainActivity.this, Scanner.class), REQUEST_START_BLE_SCAN));
 
 
+
+//        if (numBoards.size()< 2) {
+//            startActivityForResult(new Intent(MainActivity.this, Scanner.class), REQUEST_START_BLE_SCAN)
+//
+//        }
+
+
+
+
     }
 
 
@@ -58,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
+
     }
+
 
 }

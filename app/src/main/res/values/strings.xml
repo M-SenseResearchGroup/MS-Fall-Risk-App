@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">MS Fall Prevention</string>
+    <string name="app_name">MS Proactive Fall Solution</string>
     <string name="title_connecting">Connecting</string>
     <string name="title_reconnect_attempt">Reconnecting</string>
     <string name="message_wait">Please wait</string>
     <string name="action_disconnect">Disconnect</string>
     <string name="connect_sensors_button">Continue to sensor connection</string>
     <string name="proceed_to_landing_button">Proceed to landing</string>
-    <string name="title_launch">mHealth Technologies</string>
+    <string name="title_launch">mHealth Technologies | 2019 1.0.0</string>
     <string name="landing1">Welcome!</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 

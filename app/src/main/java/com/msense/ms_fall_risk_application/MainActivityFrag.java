@@ -33,6 +33,7 @@ import com.mbientlab.metawear.module.Accelerometer;
 import com.mbientlab.metawear.module.AccelerometerBosch;
 import com.mbientlab.metawear.module.AccelerometerMma8452q;
 import com.mbientlab.metawear.module.Debug;
+import com.mbientlab.metawear.module.Haptic;
 import com.mbientlab.metawear.module.Switch;
 
 import java.util.HashMap;
@@ -60,6 +61,8 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
         Activity owner= getActivity();
         owner.getApplicationContext().bindService(new Intent(owner, BtleService.class), this, Context.BIND_AUTO_CREATE);
+
+
     }
 
 
@@ -158,7 +161,14 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                     connectedDevices.notifyDataSetChanged();
                 });
             }));
-        }).continueWith((Continuation<Route, Void>) task -> {
+        })
+//                .onSuccessTask(task -> newBoard.getModule(Haptic.class).addRouteAsync(source -> source.stream((Subscriber) (data, env) -> {
+//            getActivity().runOnUiThread(() -> {
+//                newDeviceState.pressed = data.value(Boolean.class);
+//                connectedDevices.notifyDataSetChanged();
+//            });
+//        })))
+                .continueWith((Continuation<Route, Void>) task -> {
             if (task.isFaulted()) {
                 if (!newBoard.isConnected()) {
                     getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState));
