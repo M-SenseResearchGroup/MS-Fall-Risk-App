@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         ));
 
 
-        Log.i("metawear","mA oncreate");
+        Log.i("metawear","MA: View created");
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> startActivityForResult(new Intent(MainActivity.this, Scanner.class), REQUEST_START_BLE_SCAN));
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
-        Log.i("metawear","mA onActivityResult");
+
     }
 
 }

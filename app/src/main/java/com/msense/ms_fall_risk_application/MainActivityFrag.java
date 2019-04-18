@@ -55,7 +55,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i("metawear","mAF onCreate");
+        Log.i("metawear","MAF: View Created");
         super.onCreate(savedInstanceState);
 
         Activity owner= getActivity();
@@ -76,7 +76,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         final MetaWearBoard newBoard= binder.getMetaWearBoard(btDevice);
 
         newDeviceState.connecting= true;
-        Log.i("metawear","this "+newDeviceState);
+        Log.i("metawear","MAF: Atempting to connect to  "+newDeviceState);
         connectedDevices.add(newDeviceState);
         stateToBoards.put(newDeviceState, newBoard);
 
@@ -85,7 +85,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
 //        final Capture<Accelerometer> accelCapture = new Capture<>();
 
-        Log.i("metawear","mAF addNewdevice");
+
 
 
 
@@ -96,8 +96,8 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         newBoard.onUnexpectedDisconnect(status -> {
 //            ReconnectDialogFragment dialogFragment= ReconnectDialogFragment.newInstance(btDevice);
 //            dialogFragment.show(getSupportFragmentManager(), RECONNECT_DIALOG_TAG);
-            Log.i("metawear","Unexpected Disconnect Detected");
-            Log.i("metawear","Connection lost, reconnecting to " + btDevice.getAddress());
+            Log.i("metawear","MAF: Unexpected Disconnect Detected");
+            Log.i("metawear","MAF: Connection lost, reconnecting to " + btDevice.getAddress());
             newBoard.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : MainActivityFrag.reconnect(newBoard))
                     .continueWith((Continuation<Void, Void>) task -> {
 
@@ -107,9 +107,10 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 //                                ((DeviceSetupActivityFragment) getSupportFragmentManager().findFragmentById(R.id.device_setup_fragment)).reconnected();
 //                                Log.i("metawear","Reconnection Successful");
 //                            });
+                            Log.i("metawear","MAF: Successful reconnection to: "+ btDevice.getAddress());
 
                         } else {
-                            Log.i("metawear","Reconnection Successful");
+                            Log.i("metawear","MAF: Successful reconnection to: "+ btDevice.getAddress());
 //                            finish();
                         }
 
@@ -124,7 +125,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
 
         newBoard.connectAsync().onSuccessTask(task -> {
-
+                Log.i("metawear","MAF: Device succesfully connected: " + btDevice.getAddress());
 
                     getActivity().runOnUiThread(() -> {
                         newDeviceState.connecting= false;
@@ -136,8 +137,8 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                     .range(4f)      // Set data range to +/-4g, or closet valid range
                     .commit();
 
-            Log.i("metawear", "Actual Odr = " + accelerometer.getOdr());
-            Log.i("metawear", "Actual Range = " + accelerometer.getRange());
+            Log.i("metawear", "MAF: Accel frequency = " + accelerometer.getOdr());
+            Log.i("metawear", "MAF: Accel range = " + accelerometer.getRange());
 
             accelCapture.set(accelerometer);
 
@@ -151,7 +152,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
             return orientation.addRouteAsync(source -> source.stream((data, env) -> {
                 getActivity().runOnUiThread(() -> {
-                    Log.i("metawear", data.value(Acceleration.class).toString());
+                    //Log.i("metawear", data.value(Acceleration.class).toString());
 
                     newDeviceState.deviceOrientation = data.value(Acceleration.class).toString();
                     connectedDevices.notifyDataSetChanged();
@@ -176,7 +177,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
             }
 
 
-            Log.i("metawear", "mAF addNewdevice");
+
             return null;
 //
 //                        return acceleration.addRouteAsync(new RouteBuilder() {
@@ -269,7 +270,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i("metawear","mAF onCreateView");
+//        Log.i("metawear","mAF onCreateView");
         connectedDevices= new ConnectedDeviceAdapter(getActivity(), R.id.sensor_list);
         connectedDevices.setNotifyOnChange(true);
         setRetainInstance(true);
@@ -278,7 +279,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.i("metawear","mAF onViewCreated");
+//        Log.i("metawear","mAF onViewCreated");
         ListView connectedDevicesView= view.findViewById(R.id.connected_devices);
         connectedDevicesView.setAdapter(connectedDevices);
         connectedDevicesView.setOnItemLongClickListener((parent, view1, position, id) -> {
@@ -291,7 +292,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
             selectedBoard.tearDown();
             selectedBoard.getModule(Debug.class).disconnectAsync();
-            Log.i("metawear","mAF onViewCreated2");
+//            Log.i("metawear","mAF onViewCreated2");
             connectedDevices.remove(current);
             return false;
         });
@@ -300,7 +301,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         binder= (BtleService.LocalBinder) service;
-        Log.i("metawear","mAF onServiceConnected");
+        Log.i("metawear","MAF: Bluetooth service connected");
     }
 
     @Override

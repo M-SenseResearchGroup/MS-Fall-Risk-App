@@ -23,7 +23,7 @@ public class Scanner extends AppCompatActivity implements ScannerCommunicationBu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("metawear","SA oncreate");
+        Log.i("metawear","SA: Scanner view created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
     }
@@ -40,7 +40,7 @@ public class Scanner extends AppCompatActivity implements ScannerCommunicationBu
 
     @Override
     public void onDeviceSelected(BluetoothDevice device) {
-        Log.i("metawear","SA onDeviceSelected");
+        Log.i("metawear","SA: Device Selected");
         Intent result= new Intent();
         result.putExtra(EXTRA_DEVICE, device);
         setResult(RESULT_OK, result);

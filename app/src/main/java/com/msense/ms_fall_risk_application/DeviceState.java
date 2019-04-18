@@ -13,12 +13,12 @@ class DeviceState {
         this.btDevice= btDevice;
         this.deviceOrientation= null;
 
-        Log.i("metawear","DS DeviceState");
+//        Log.i("metawear","DS DeviceState");
     }
 
     @Override
     public boolean equals(Object obj) {
-        Log.i("metawear","DS equals");
+//        Log.i("metawear","DS: equals");
         return (obj == this) ||
                 ((obj instanceof DeviceState) && btDevice.equals(((DeviceState) obj).btDevice));
     }

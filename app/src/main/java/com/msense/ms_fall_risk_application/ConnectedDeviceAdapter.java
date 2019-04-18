@@ -17,7 +17,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i("metawear","CDA View");
+//        Log.i("metawear","CDA View");
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -64,7 +64,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
             viewHolder.connectingProgress.setVisibility(View.GONE);
             viewHolder.connectingText.setVisibility(View.GONE);
         }
-        Log.i("metawear","CDA ViewEnd");
+//        Log.i("metawear","CDA ViewEnd");
         return convertView;
     }
 
@@ -77,13 +77,13 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
     public void update(DeviceState newState) {
         int pos= getPosition(newState);
-        Log.i("metawear","CDA: Device Selected 4"+pos);
-        Log.i("metawear","update");
+//        Log.i("metawear","CDA: Device Selected 4"+pos);
+//        Log.i("metawear","update");
 
         if (pos == -1) {
             add(newState);
         } else {
-            Log.i("metawear","else");
+//            Log.i("metawear","else");
             DeviceState current= getItem(pos);
 
             current.deviceOrientation= newState.deviceOrientation;
