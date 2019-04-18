@@ -20,6 +20,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 //        Log.i("metawear","CDA View");
         ViewHolder viewHolder;
 
+
         if (convertView == null) {
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.sensor_list, parent, false);
 

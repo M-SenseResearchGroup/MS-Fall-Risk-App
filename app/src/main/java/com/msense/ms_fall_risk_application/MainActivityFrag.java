@@ -1,6 +1,7 @@
 package com.msense.ms_fall_risk_application;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,8 @@ import com.mbientlab.metawear.module.AccelerometerMma8452q;
 import com.mbientlab.metawear.module.Debug;
 import com.mbientlab.metawear.module.Haptic;
 import com.mbientlab.metawear.module.Switch;
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationManagerCompat;
 
 import java.util.HashMap;
 
@@ -42,6 +46,12 @@ import bolts.Capture;
 import bolts.Continuation;
 import bolts.Task;
 
+import android.os.Build;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 
 public class MainActivityFrag extends Fragment implements ServiceConnection {
 
@@ -53,6 +63,8 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
     public MainActivityFrag() {
         stateToBoards = new HashMap<>();
     }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,6 +194,9 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                 }
             } else {
 
+
+
+
                 orientCapture.get().start();
                 accelCapture.get().start();
             }
@@ -189,91 +204,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
 
             return null;
-//
-//                        return acceleration.addRouteAsync(new RouteBuilder() {
-//                            @Override
-//                            public void configure(RouteComponent source) {
-//                                source.stream(new Subscriber() {
-//                                    @Override
-//                                    public void apply(Data data, Object... env) {
-//                                        Log.i("metawear", data.value(Acceleration.class).toString());
-//                                        newDeviceState.deviceOrientation = data.value(SensorOrientation.class).toString();
-//                                        connectedDevices.notifyDataSetChanged();
-//                                    }
-//                                });
-//                            }
-//                        });
-//
-//            final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
-//            accelCapture.set(accelerometer);
-//
-//            final AsyncDataProducer orientation;
-//            if (accelerometer instanceof AccelerometerBosch) {
-//                orientation = ((AccelerometerBosch) accelerometer).orientation();
-//            } else {
-//                orientation = ((AccelerometerMma8452q) accelerometer).orientation();
-//            }
-//            orientCapture.set(orientation);
-//
-//            return orientation.addRouteAsync(source -> source.stream((data, env) -> {
-//                getActivity().runOnUiThread(() -> {
-//                    newDeviceState.deviceOrientation = data.value(SensorOrientation.class).toString();
-//                    connectedDevices.notifyDataSetChanged();
-//                });
-//            }));
 
-
-//        newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
-//        newBoard.connectAsync().onSuccessTask(task -> {
-//            getActivity().runOnUiThread(() -> {
-//                newDeviceState.connecting= false;
-//                connectedDevices.notifyDataSetChanged();
-//            });
-//
-//            //this is other -------------->
-//
-//            final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
-//            accelCapture.set(accelerometer);
-//
-//            final AsyncDataProducer orientation;
-//            if (accelerometer instanceof AccelerometerBosch) {
-//                orientation = ((AccelerometerBosch) accelerometer).orientation();
-//            } else {
-//                orientation = ((AccelerometerMma8452q) accelerometer).orientation();
-//            }
-//            orientCapture.set(orientation);
-//
-//            return orientation.addRouteAsync(source -> source.stream((data, env) -> {
-//                getActivity().runOnUiThread(() -> {
-//                    newDeviceState.deviceOrientation = data.value(SensorOrientation.class).toString();
-//                    connectedDevices.notifyDataSetChanged();
-//                });
-//            }));
-//        }).onSuccessTask(task -> newBoard.getModule(Switch.class).state().addRouteAsync(source -> source.stream((Subscriber) (data, env) -> {
-//            getActivity().runOnUiThread(() -> {
-//                newDeviceState.pressed = data.value(Boolean.class);
-//                connectedDevices.notifyDataSetChanged();
-//            });
-//        }))).continueWith((Continuation<Route, Void>) task -> {
-//            if (task.isFaulted()) {
-//                if (!newBoard.isConnected()) {
-//                    getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState));
-//                } else {
-//                    Snackbar.make(getActivity().findViewById(R.id.activity_main_layout), task.getError().getLocalizedMessage(), Snackbar.LENGTH_SHORT).show();
-//                    newBoard.tearDown();
-//                    newBoard.disconnectAsync().continueWith((Continuation<Void, Void>) task1 -> {
-//                        connectedDevices.remove(newDeviceState);
-//                        return null;
-//                    });
-//                }
-//            } else {
-//                orientCapture.get().start();
-//                accelCapture.get().start();
-//            }
-
-
-//                    Log.i("metawear", "mAF addNewdevice");
-//                    return null;
         });
     };
 
