@@ -60,20 +60,20 @@ struct emxArray_boolean_T
 };
 
 typedef struct {
-  creal_T *data;
+  real_T *data;
   int *size;
   int allocatedSize;
   int numDimensions;
   boolean_T canFreeData;
-} emxArray_creal_T;
+} emxArray_real_T;
 
 typedef struct {
-  cuint8_T *data;
+  uint8_T *data;
   int *size;
   int allocatedSize;
   int numDimensions;
   boolean_T canFreeData;
-} emxArray_cuint8_T;
+} emxArray_uint8_T;
 
 struct emxArray_int32_T
 {

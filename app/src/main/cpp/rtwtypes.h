@@ -9,8 +9,11 @@
  *
  */
 
+
 #ifndef RTWTYPES_H
 #define RTWTYPES_H
+
+#include "tmwtypes.h"
 
 /*=======================================================================*
  * Fixed width word size data types:                                     *
@@ -37,7 +40,9 @@
 # endif
 #endif
 
-#include "tmwtypes.h"
+
 #endif
+
+
 
 /* End of code generation (rtwtypes.h) */

@@ -14,7 +14,7 @@
 #include <stddef.h>
 #include "rtwtypes.h"
 
-extern real_T rtInf;
+extern creal_T rtInf;
 extern real_T rtMinusInf;
 extern real_T rtNaN;
 extern real32_T rtInfF;

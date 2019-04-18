@@ -79,41 +79,50 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         connectedDevices.add(newDeviceState);
         stateToBoards.put(newDeviceState, newBoard);
 
-        final Capture<AsyncDataProducer> accelCapture = new Capture<>();
+        final Capture<AsyncDataProducer> orientCapture = new Capture<>();
+        final Capture<Accelerometer> accelCapture = new Capture<>();
+
 //        final Capture<Accelerometer> accelCapture = new Capture<>();
+
         Log.i("metawear","mAF addNewdevice");
 //        newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
-        newBoard.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : reconnect(newBoard))
-                .onSuccessTask(task -> {
+        newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
+        newBoard.connectAsync().onSuccessTask(task -> {
+
+//        newBoard.connectAsync().continueWithTask(task -> task.isCancelled() || !task.isFaulted() ? task : reconnect(newBoard))
+//                .onSuccessTask(task -> {
                     getActivity().runOnUiThread(() -> {
                         newDeviceState.connecting= false;
                         connectedDevices.notifyDataSetChanged();
                     });
-                    final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
-                    // enable low-g detection, use sum criteria,
-                    // detect when sum < 0.333g
-                    accelerometer.configure()
-                            .odr(32.5f)       // Set sampling frequency to 25Hz, or closest valid ODR
-                            .range(4f)      // Set data range to +/-4g, or closet valid range
-                            .commit();
+            final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
+            accelerometer.configure()
+                    .odr(32.5f)       // Set sampling frequency to 25Hz, or closest valid ODR
+                    .range(4f)      // Set data range to +/-4g, or closet valid range
+                    .commit();
 
-                    Log.i("metawear", "Actual Odr = " + accelerometer.getOdr());
-                    Log.i("metawear", "Actual Range = " + accelerometer.getRange());
+            Log.i("metawear", "Actual Odr = " + accelerometer.getOdr());
+            Log.i("metawear", "Actual Range = " + accelerometer.getRange());
 
+            accelCapture.set(accelerometer);
 
-                    final AsyncDataProducer acceleration;
-                    acceleration = accelerometer.acceleration();
-                    accelCapture.set(acceleration);
+            final AsyncDataProducer orientation;
+            if (accelerometer instanceof AccelerometerBosch) {
+                orientation = ((AccelerometerBosch) accelerometer).acceleration();
+            } else {
+                orientation = ((AccelerometerMma8452q) accelerometer).acceleration();
+            }
+            orientCapture.set(orientation);
 
-                    return acceleration.addRouteAsync(source -> source.stream((data, env) -> {
-                        getActivity().runOnUiThread(() -> {
-                            Log.i("metawear", data.value(Acceleration.class).toString());
-                            newDeviceState.deviceOrientation = data.value(Acceleration.class).toString();
-//                    Log.i("metawear", data.value(Acceleration.class).toString());
-                            connectedDevices.notifyDataSetChanged();
-                        });
-                    }));
-                }).continueWith((Continuation<Route, Void>) task -> {
+            return orientation.addRouteAsync(source -> source.stream((data, env) -> {
+                getActivity().runOnUiThread(() -> {
+                    Log.i("metawear", data.value(Acceleration.class).toString());
+
+                    newDeviceState.deviceOrientation = data.value(Acceleration.class).toString();
+                    connectedDevices.notifyDataSetChanged();
+                });
+            }));
+        }).continueWith((Continuation<Route, Void>) task -> {
             if (task.isFaulted()) {
                 if (!newBoard.isConnected()) {
                     getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState));
@@ -127,6 +136,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                 }
             } else {
 
+                orientCapture.get().start();
                 accelCapture.get().start();
             }
 
