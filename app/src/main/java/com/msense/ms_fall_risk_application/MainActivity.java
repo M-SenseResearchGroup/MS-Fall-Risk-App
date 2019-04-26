@@ -31,6 +31,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -78,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("metawear","MA: View created");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> startActivityForResult(new Intent(MainActivity.this, Scanner.class), REQUEST_START_BLE_SCAN));
+        ImageView plus = findViewById(R.id.plus);
+        plus.setOnClickListener(view -> startActivityForResult(new Intent(MainActivity.this, Scanner.class), REQUEST_START_BLE_SCAN));
 
-//        Button fallRisk = findViewById(R.id.genFall);
-//        fallRisk.setOnClickListener(this::myClickHandler);
+        Button fallRisk = findViewById(R.id.genFall);
+        fallRisk.setOnClickListener(this::myClickHandler);
 
 
         if (i < 2) {
@@ -122,24 +124,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public void myClickHandler(View v)
-//    {
-//
-//        Log.i("metawear","click!");
-//        long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
-//        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-//                .setSmallIcon(R.drawable.ic_walk)
-//                .setContentTitle("HIGH FALL RISK DETECTED")
-//                //.setPriority(NotificationCompat.PRIORITY_HIGH)
-//                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
-//                .setVibrate(pattern)
-//                .setStyle(new NotificationCompat.InboxStyle()
-//                        .addLine("Find A Place To Sit")
-//                        .addLine("Focus on your balance"))
-//                .build();
-//        notificationManager.notify(115, notification);
-//
-//    }
+    public void myClickHandler(View v)
+    {
+
+        Log.i("metawear","click!");
+        long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_walk)
+                .setContentTitle("HIGH FALL RISK DETECTED")
+                //.setPriority(NotificationCompat.PRIORITY_HIGH)
+                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setVibrate(pattern)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine("Find A Place To Sit")
+                        .addLine("Focus on your balance"))
+                .build();
+        notificationManager.notify(115, notification);
+
+    }
 
 
 

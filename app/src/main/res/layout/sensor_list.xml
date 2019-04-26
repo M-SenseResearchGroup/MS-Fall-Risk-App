@@ -26,31 +26,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-
-            android:text="TextView"
-            android:textColor="@color/Navy"
-            android:textSize="20sp" />
-
-
-        <Button
-            android:id="@+id/vib_button"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/xVal"
-            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="48dp"
-            android:onClick="myClickHandler"
-            android:text="Vibrate" />
+            android:layout_marginEnd="8dp"
+            android:text="Bt Address"
+            android:textColor="@color/Black"
+            android:layout_marginTop="0dp"
+            android:textSize="15sp"/>
+
+
+
 
         <TextView
             android:id="@+id/text_connecting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/vib_button"
+            android:layout_below="@+id/xVal"
             android:layout_marginTop="5dp"
             android:text="Connecting . . ."
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -66,27 +56,37 @@
 
         <TextView
             android:id="@+id/xVal"
+            android:layout_below="@+id/status_mac_address"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/status_mac_address"
-            android:text="TextView" />
+            android:layout_marginTop="8dp"
+            android:text="X"
+            android:textColor="@color/Navy"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/yVal"
+            android:layout_below="@+id/status_mac_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_below="@id/status_mac_address"
-            android:text="TextView" />
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="8dp"
+            android:text="Y"
+            android:textColor="@color/Navy"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/zVal"
+            android:layout_below="@+id/status_mac_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/status_mac_address"
-            android:layout_marginStart="100dp"
-            android:text="TextView" />
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="200dp"
+            android:text="Z"
+            android:textColor="@color/Navy"
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 </LinearLayout>

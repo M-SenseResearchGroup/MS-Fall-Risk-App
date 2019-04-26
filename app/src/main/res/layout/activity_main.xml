@@ -25,7 +25,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/main_content"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/main_content" />
+
+    <ImageView
+        android:id="@+id/plus"
+        android:layout_width="51dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="-10dp"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="top|end"
+        app:srcCompat="@drawable/plus" />
 
     <!--<Button-->
     <!--android:id="@+id/fab"-->
@@ -34,12 +46,6 @@
     <!--android:text="Button" />-->
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add"/>
+
 
 </android.support.design.widget.CoordinatorLayout>

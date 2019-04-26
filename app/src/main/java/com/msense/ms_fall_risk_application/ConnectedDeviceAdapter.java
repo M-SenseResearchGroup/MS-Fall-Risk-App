@@ -39,7 +39,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
             viewHolder.connectingText= convertView.findViewById(R.id.text_connecting);
             viewHolder.connectingProgress= convertView.findViewById(R.id.connecting_progress);
-            viewHolder.button = convertView.findViewById(R.id.vib_button);
+
 
             convertView.setTag(viewHolder);
         } else {
@@ -83,7 +83,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
             viewHolder.connectingText.setVisibility(View.GONE);
 
         }
-        viewHolder.button.setTag(position);
+//        viewHolder.button.setTag(position);
 
 
 //        viewHolder.button.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +101,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
     private class ViewHolder {
         TextView deviceAddress, connectingText, xVal, yVal, zVal;
-        Button button;
+//        Button button;
 
         ProgressBar connectingProgress;
 

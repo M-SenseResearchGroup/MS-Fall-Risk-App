@@ -164,7 +164,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 //                    Log.i("metawear",s.substring(0,6));
                     newDeviceState.xVal = s.substring(4,10);
                     newDeviceState.yVal = s.substring(15,21);
-                    newDeviceState.zVal = s.substring(26,32);
+                    newDeviceState.zVal = s.substring(27,32);
 
 
 
@@ -259,17 +259,17 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
             connectedDevices.remove(current);
 
 
-            Button button = (Button) view.findViewById(R.id.vib_button);
-            button.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    selectedBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-
-                    Log.i("metawear","clickckckc");
-                }
-            });
+//            Button button = (Button) view.findViewById(R.id.vib_button);
+//            button.setOnClickListener(new View.OnClickListener()
+//            {
+//                @Override
+//                public void onClick(View v)
+//                {
+//                    selectedBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+//
+//                    Log.i("metawear","clickckckc");
+//                }
+//            });
             return false;
         });
     }
@@ -289,8 +289,8 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         return board.connectAsync().continueWithTask(task -> task.isFaulted() ? reconnect(board) : task);
     }
 
-    public void myClickHandler(View v)
-    {
+//    public void myClickHandler(View v)
+//    {
 
 //        Log.i("metawear","click!");
 //        long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
@@ -306,6 +306,6 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 //                .build();
 //        notificationManager.notify(115, notification);
 
-    }
+    //}
 
 }

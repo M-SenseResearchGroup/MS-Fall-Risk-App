@@ -31,8 +31,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select Sensor"
+        android:layout_marginTop="8dp"
         android:id="@+id/ble_scan_title"
         android:layout_gravity="center_horizontal" />
+
+    <View
+        style="@style/Divider"
+        android:layout_below="@+id/ble_scan_title"
+        android:layout_gravity="center_horizontal"
+ />
 
     <fragment xmlns:tools="http://schemas.android.com/tools" android:id="@+id/scanner_fragment"
         android:name="com.mbientlab.bletoolbox.scanner.BleScannerFragment"
