@@ -45,7 +45,7 @@
         android:layout_marginTop="8dp"
         android:text="Accel: X"
         android:textColor="@color/Black"
-        android:textSize="20sp"/>
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/yVall"
@@ -56,7 +56,7 @@
         android:layout_marginTop="8dp"
         android:text="Accel: Y"
         android:textColor="@color/Black"
-        android:textSize="20sp"/>
+        android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/zVall"
@@ -68,7 +68,7 @@
         android:layout_marginTop="8dp"
         android:text="Accel: Z"
         android:textColor="@color/Black"
-        android:textSize="20sp"/>
+        android:textSize="17sp"/>
 
     <Button
         android:id="@+id/genFall"

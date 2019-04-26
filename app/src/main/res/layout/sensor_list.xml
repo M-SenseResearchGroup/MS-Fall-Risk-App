@@ -27,14 +27,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
             android:text="Bt Address"
             android:textColor="@color/Black"
+            android:textSize="10sp"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/sensorLoco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
-            android:textSize="15sp"/>
-
-
-
+            android:text="Sensor Loco"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="italic"/>
 
         <TextView
             android:id="@+id/text_connecting"
@@ -52,11 +62,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_connecting"
             android:layout_marginTop="2dp"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:indeterminateTint="@android:color/holo_green_dark"/>
 
         <TextView
             android:id="@+id/xVal"
-            android:layout_below="@+id/status_mac_address"
+            android:layout_below="@+id/sensorLoco"
             android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +78,7 @@
 
         <TextView
             android:id="@+id/yVal"
-            android:layout_below="@+id/status_mac_address"
+            android:layout_below="@+id/sensorLoco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
@@ -78,7 +89,7 @@
 
         <TextView
             android:id="@+id/zVal"
-            android:layout_below="@+id/status_mac_address"
+            android:layout_below="@+id/sensorLoco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"

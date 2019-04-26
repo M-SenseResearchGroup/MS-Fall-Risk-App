@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+
 public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
     public ConnectedDeviceAdapter(Context context, int resource) {
         super(context, resource);
@@ -32,7 +34,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
             viewHolder= new ViewHolder();
 //            viewHolder.deviceName= convertView.findViewById(R.id.status_device_name);
             viewHolder.deviceAddress= convertView.findViewById(R.id.status_mac_address);
-
+            viewHolder.sensorLoco = convertView.findViewById(R.id.sensorLoco);
             viewHolder.xVal = convertView.findViewById(R.id.xVal);
             viewHolder.yVal = convertView.findViewById(R.id.yVal);
             viewHolder.zVal = convertView.findViewById(R.id.zVal);
@@ -52,12 +54,20 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
 
         final String deviceName= state.btDevice.getName();
 
+        if ( position <= 0 ){
+            viewHolder.sensorLoco.setText("Medial Chest");
+        }
+        else {
+            viewHolder.sensorLoco.setText("Anterior Thigh");
+        }
+
 //        if (deviceName != null && deviceName.length() > 0) {
 //            viewHolder.deviceName.setText(deviceName);
 //        } else {
 //            viewHolder.deviceName.setText(R.string.label_unknown_device);
 //        }
-        viewHolder.deviceAddress.setText(state.btDevice.getAddress());
+
+        viewHolder.deviceAddress.setText(state.btDevice.getAddress().substring(15, 17));
 
         if (state.connecting) {
             viewHolder.connectingProgress.setVisibility(View.VISIBLE);
@@ -100,7 +110,7 @@ public class ConnectedDeviceAdapter extends ArrayAdapter<DeviceState> {
     }
 
     private class ViewHolder {
-        TextView deviceAddress, connectingText, xVal, yVal, zVal;
+        TextView deviceAddress, connectingText, xVal, yVal, zVal, sensorLoco;
 //        Button button;
 
         ProgressBar connectingProgress;
