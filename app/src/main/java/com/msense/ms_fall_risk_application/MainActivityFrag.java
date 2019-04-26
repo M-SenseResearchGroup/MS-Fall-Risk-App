@@ -136,14 +136,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                         connectedDevices.notifyDataSetChanged();
                     });
 
-            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+
 
             final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
             accelerometer.configure()
@@ -183,28 +176,6 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
         })
 
-//        .onSuccessTask(task ->
-//                setOnClickListener(new View.OnClickListener() {
-//                    @@ -67,46 +67,49 @@ public void onClick(View v) {
-//
-//                                                                     }
-//                        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-//                        newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
-//                        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-//                        newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
-//
-//                    });
-//        );
-
-
-//        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
-//
-//                .onSuccessTask(task -> newBoard.getModule(Switch.class).state().addRouteAsync(source -> source.stream((Subscriber) (data, env) -> {
-//                    getActivity().runOnUiThread(() -> {
-//                        newDeviceState.pressed = data.value(Boolean.class);
-//                        connectedDevices.notifyDataSetChanged();
-//                    });
-//                })))
 
                 .continueWith((Continuation<Route, Void>) task -> {
             if (task.isFaulted()) {
@@ -253,7 +224,23 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 //        Log.i("metawear","mAF onViewCreated");
         ListView connectedDevicesView= view.findViewById(R.id.connected_devices);
         connectedDevicesView.setAdapter(connectedDevices);
+        connectedDevicesView.setOnItemClickListener((parent, view1, position, id) -> {
+            Log.i("metawear","I've been clicked!");
+            DeviceState current= connectedDevices.getItem(position);
+            final MetaWearBoard newBoard= stateToBoards.get(current);
+
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+
+        });
         connectedDevicesView.setOnItemLongClickListener((parent, view1, position, id) -> {
+
             DeviceState current= connectedDevices.getItem(position);
             final MetaWearBoard selectedBoard= stateToBoards.get(current);
 

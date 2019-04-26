@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    final Context context = this;
     protected void onResume() {
         super.onResume();
         new Thread(new Runnable() {
@@ -148,6 +149,18 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("metawear", "MAF: High Fall Risk Clicked!");
                         addEntry();
 
+                        long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+                        Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.ic_walk)
+                                .setContentTitle("HIGH FALL RISK DETECTED")
+                                //.setPriority(NotificationCompat.PRIORITY_HIGH)
+                                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                .setVibrate(pattern)
+                                .setStyle(new NotificationCompat.InboxStyle()
+                                        .addLine("Find A Place To Sit")
+                                        .addLine("Focus on your balance"))
+                                .build();
+                        notificationManager.notify(115, notification);
 
                     }
                 });
