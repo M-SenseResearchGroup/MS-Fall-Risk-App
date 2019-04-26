@@ -14,13 +14,13 @@
     <ListView
         android:id="@+id/connected_devices"
         android:layout_width="wrap_content"
-        android:layout_height="446dp"
+        android:layout_height="302dp"
         android:layout_below="@+id/yVall"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginBottom="277dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -84,5 +84,23 @@
         android:layout_marginBottom="18dp"
         android:text="Generate Fall Alert"
         />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+
+        android:layout_height="150dp"
+        android:layout_below="@+id/connected_devices"
+        android:layout_marginTop="-250dp" />
+    <!--<include-->
+        <!--android:id="@+id/include"-->
+        <!--layout="@layout/line_chart"-->
+        <!--android:layout_below="@id/connected_devices"-->
+        <!--android:layout_height="50sp"-->
+        <!--android:layout_width="match_parent"/>-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="400dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_below="@+id/connected_devices"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="0dp" />&ndash;&gt;-->
 </RelativeLayout>
 

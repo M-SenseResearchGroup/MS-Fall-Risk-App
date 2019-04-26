@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+
 import com.mbientlab.metawear.AsyncDataProducer;
 import com.mbientlab.metawear.Data;
 import com.mbientlab.metawear.MetaWearBoard;
@@ -49,6 +50,12 @@ import bolts.Task;
 
 public class MainActivityFrag extends Fragment implements ServiceConnection {
 
+
+
+
+
+
+
     private final HashMap<DeviceState, MetaWearBoard> stateToBoards;
     private BtleService.LocalBinder binder;
 
@@ -67,6 +74,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
 
         Activity owner= getActivity();
         owner.getApplicationContext().bindService(new Intent(owner, BtleService.class), this, Context.BIND_AUTO_CREATE);
+
 
 
     }
@@ -234,6 +242,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         connectedDevices.setNotifyOnChange(true);
         setRetainInstance(true);
         View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
+
 
 
         return view;

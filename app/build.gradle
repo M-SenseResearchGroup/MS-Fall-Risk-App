@@ -81,4 +81,8 @@ dependencies {
     implementation 'com.mbientlab.bletoolbox:scanner:0.2.3'
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
     implementation "com.android.support:design:$rootProject.ext.supportLibVersion"
+
+
+    implementation 'com.jjoe64:graphview:4.2.2'
+
 }
