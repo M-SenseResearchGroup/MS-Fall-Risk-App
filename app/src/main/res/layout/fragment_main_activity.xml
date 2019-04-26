@@ -12,10 +12,35 @@
     tools:showIn="@layout/activity_main">
 
     <ListView
+        android:id="@+id/connected_devices"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginBottom="126dp" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/connected_devices"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:text="Welcome!" />
+
+    <Button
+        android:id="@+id/genFall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="18dp"
+        android:text="Generate Fall Alert"
+        />
 </RelativeLayout>
 

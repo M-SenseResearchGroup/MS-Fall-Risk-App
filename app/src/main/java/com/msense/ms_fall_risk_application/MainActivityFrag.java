@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.mbientlab.metawear.AsyncDataProducer;
@@ -30,15 +31,13 @@ import com.mbientlab.metawear.android.BtleService;
 import com.mbientlab.metawear.builder.RouteBuilder;
 import com.mbientlab.metawear.builder.RouteComponent;
 import com.mbientlab.metawear.data.Acceleration;
-import com.mbientlab.metawear.data.SensorOrientation;
 import com.mbientlab.metawear.module.Accelerometer;
 import com.mbientlab.metawear.module.AccelerometerBosch;
 import com.mbientlab.metawear.module.AccelerometerMma8452q;
 import com.mbientlab.metawear.module.Debug;
 import com.mbientlab.metawear.module.Haptic;
 import com.mbientlab.metawear.module.Switch;
-import android.app.NotificationManager;
-import android.support.v4.app.NotificationManagerCompat;
+
 
 import java.util.HashMap;
 
@@ -46,12 +45,7 @@ import bolts.Capture;
 import bolts.Continuation;
 import bolts.Task;
 
-import android.os.Build;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
+
 
 public class MainActivityFrag extends Fragment implements ServiceConnection {
 
@@ -64,7 +58,7 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         stateToBoards = new HashMap<>();
     }
 
-
+    private String s;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,14 +92,6 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         final Capture<AsyncDataProducer> orientCapture = new Capture<>();
         final Capture<Accelerometer> accelCapture = new Capture<>();
 
-//        final Capture<Accelerometer> accelCapture = new Capture<>();
-
-
-
-
-
-        //newBoard.onUnexpectedDisconnect(status -> getActivity().runOnUiThread(() -> connectedDevices.remove(newDeviceState)));
-
 
 
         newBoard.onUnexpectedDisconnect(status -> {
@@ -134,11 +120,6 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         });
 
 
-
-
-
-
-
         newBoard.connectAsync().onSuccessTask(task -> {
                 Log.i("metawear","MAF: Device succesfully connected: " + btDevice.getAddress());
 
@@ -146,6 +127,16 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
                         newDeviceState.connecting= false;
                         connectedDevices.notifyDataSetChanged();
                     });
+
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+            newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+
             final Accelerometer accelerometer = newBoard.getModule(Accelerometer.class);
             accelerometer.configure()
                     .odr(32.5f)       // Set sampling frequency to 25Hz, or closest valid ODR
@@ -168,18 +159,45 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
             return orientation.addRouteAsync(source -> source.stream((data, env) -> {
                 getActivity().runOnUiThread(() -> {
                     //Log.i("metawear", data.value(Acceleration.class).toString());
+                    s = data.value(Acceleration.class).toString();
 
-                    newDeviceState.deviceOrientation = data.value(Acceleration.class).toString();
+//                    Log.i("metawear",s.substring(0,6));
+                    newDeviceState.xVal = s.substring(4,10);
+                    newDeviceState.yVal = s.substring(15,21);
+                    newDeviceState.zVal = s.substring(26,32);
+
+
+
                     connectedDevices.notifyDataSetChanged();
+
                 });
             }));
+
         })
-//                .onSuccessTask(task -> newBoard.getModule(Haptic.class).addRouteAsync(source -> source.stream((Subscriber) (data, env) -> {
-//            getActivity().runOnUiThread(() -> {
-//                newDeviceState.pressed = data.value(Boolean.class);
-//                connectedDevices.notifyDataSetChanged();
-//            });
-//        })))
+
+//        .onSuccessTask(task ->
+//                setOnClickListener(new View.OnClickListener() {
+//                    @@ -67,46 +67,49 @@ public void onClick(View v) {
+//
+//                                                                     }
+//                        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+//                        newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+//                        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+//                        newBoard.getModule(Haptic.class).startMotor(50.f, (short) 1000);
+//
+//                    });
+//        );
+
+
+//        newBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+//
+//                .onSuccessTask(task -> newBoard.getModule(Switch.class).state().addRouteAsync(source -> source.stream((Subscriber) (data, env) -> {
+//                    getActivity().runOnUiThread(() -> {
+//                        newDeviceState.pressed = data.value(Boolean.class);
+//                        connectedDevices.notifyDataSetChanged();
+//                    });
+//                })))
+
                 .continueWith((Continuation<Route, Void>) task -> {
             if (task.isFaulted()) {
                 if (!newBoard.isConnected()) {
@@ -215,8 +233,11 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
         connectedDevices= new ConnectedDeviceAdapter(getActivity(), R.id.sensor_list);
         connectedDevices.setNotifyOnChange(true);
         setRetainInstance(true);
-        return inflater.inflate(R.layout.fragment_main_activity, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_main_activity, container, false);
+
+
+        return view;
+}
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -231,10 +252,24 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
             accelerometer.stop();
 
 
+
             selectedBoard.tearDown();
             selectedBoard.getModule(Debug.class).disconnectAsync();
 //            Log.i("metawear","mAF onViewCreated2");
             connectedDevices.remove(current);
+
+
+            Button button = (Button) view.findViewById(R.id.vib_button);
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    selectedBoard.getModule(Haptic.class).startMotor(100.f, (short) 1000);
+
+                    Log.i("metawear","clickckckc");
+                }
+            });
             return false;
         });
     }
@@ -253,4 +288,24 @@ public class MainActivityFrag extends Fragment implements ServiceConnection {
     public static Task<Void> reconnect(final MetaWearBoard board) {
         return board.connectAsync().continueWithTask(task -> task.isFaulted() ? reconnect(board) : task);
     }
+
+    public void myClickHandler(View v)
+    {
+
+//        Log.i("metawear","click!");
+//        long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+//        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_walk)
+//                .setContentTitle("HIGH FALL RISK DETECTED")
+//                //.setPriority(NotificationCompat.PRIORITY_HIGH)
+//                //.setCategory(NotificationCompat.CATEGORY_MESSAGE)
+//                .setVibrate(pattern)
+//                .setStyle(new NotificationCompat.InboxStyle()
+//                        .addLine("Find A Place To Sit")
+//                        .addLine("Focus on your balance"))
+//                .build();
+//        notificationManager.notify(115, notification);
+
+    }
+
 }
