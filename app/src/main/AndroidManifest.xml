@@ -23,6 +23,12 @@
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".Main2Activity" />
+        <activity android:name=".info"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
+
+
+
     </application>
 
 </manifest>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".info"
+    android:background="@color/LighterGreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Welcome!"
+            android:textColor="@color/Navy"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginStart="8dp"
+            android:text="Thank you for choosing mSense's MS Proactive Fall Solution! "
+            android:textColor="@color/Navy"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"/>
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView6"
+            android:layout_marginStart="8dp"
+            android:text="Below you'll see three components of acceleration from the two sensors placed at the medial chest and anterior thigh locations. Additionally, a live plot will show your fall risk over time.
+
+Click anywhere to dismiss."
+            android:textColor="@color/Navy"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+        </TextView>
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="260dp"
+            android:layout_height="102dp"
+            android:layout_below="@id/textView7"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/logo" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
